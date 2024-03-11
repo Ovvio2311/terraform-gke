@@ -7,7 +7,7 @@ data "google_client_config" "update" {
 data "google_container_cluster" "primary" {
   name     = var.cluster_name
   location = "us-central1-c"
-  # depends_on = [module.gke]
+  depends_on = [module.gke]
 }
 data "google_container_cluster" "update" {
   name     = var.cluster_name
