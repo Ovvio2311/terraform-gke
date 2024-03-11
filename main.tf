@@ -7,7 +7,7 @@ data "google_client_config" "update" {
 data "google_container_cluster" "primary" {
   name     = var.cluster_name
   location = "us-central1-c"
-  depends_on = [module.gke]
+  # depends_on = [module.gke]
 }
 data "google_container_cluster" "update" {
   name     = var.cluster_name
@@ -21,9 +21,9 @@ provider "google" {
   zone    = "us-central1-c"
 }
 provider "kubernetes" {
-  host  = "https://${data.google_container_cluster.primary.endpoint}"  
+  host                   = "https://${module.gke.endpoint}" 
   token                  = data.google_client_config.default.access_token    
-  cluster_ca_certificate = base64decode(data.google_container_cluster.primary.master_auth[0].cluster_ca_certificate)
+  cluster_ca_certificate   = base64decode(module.gke.ca_certificate)
   # client_key             = base64decode(data.google_container_cluster.primary.master_auth.0.client_key)
   # client_certificate = base64decode(data.google_container_cluster.primary.master_auth.0.client_certificate)
 }
