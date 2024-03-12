@@ -120,11 +120,13 @@ module "gke" {
   master_ipv4_cidr_block  = "10.0.0.0/24"
   deletion_protection     = false
   remove_default_node_pool= true
-  network_policy          = false  
+  network_policy          = false
+  horizontal_pod_autoscaling = true
   kubernetes_version      = "1.29"
   release_channel         = "UNSPECIFIED"
   fleet_project           = "able-scope-413414"
   disable_legacy_metadata_endpoints = true
+  deletion_protection     = false
   master_authorized_networks = [
     {
       cidr_block   = "10.0.0.0/24"
