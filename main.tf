@@ -126,7 +126,7 @@ module "gke" {
   release_channel         = "UNSPECIFIED"
   fleet_project           = "able-scope-413414"
   disable_legacy_metadata_endpoints = true
-  deletion_protection     = false
+  
   master_authorized_networks = [
     {
       cidr_block   = "10.0.0.0/24"
