@@ -121,7 +121,7 @@ module "gke" {
   deletion_protection     = false
   remove_default_node_pool= true
   network_policy          = false
-  horizontal_pod_autoscaling = true
+  horizontal_pod_autoscaling = false
   kubernetes_version      = "1.29"
   release_channel         = "UNSPECIFIED"
   fleet_project           = "able-scope-413414"
