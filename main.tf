@@ -11,7 +11,7 @@ data "google_container_cluster" "primary" {
   depends_on = [module.gke]
 }
 provider "google" {
-  # credentials = file("/mnt/c/Users/jackyli/Downloads/able-scope-413414-d1f3a6012760.json")
+  credentials = file("/home/itp4108mfyp/astute-catcher-417216-b16c8ea6b4fd.json")
   project = "able-scope-413414"
   region  = "us-central1"
   zone    = "us-central1-c"
