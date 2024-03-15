@@ -239,7 +239,7 @@ module "firewall_rules" {
     }]
   }]
 }
-
+/*
 resource "google_compute_router" "router" {
   name    = "fyp-router"
   region  = data.google_compute_subnetwork.subnetwork.region
@@ -261,7 +261,7 @@ resource "google_compute_router_nat" "nat" {
     filter = "ERRORS_ONLY"
   }
 }
-
+*/
 resource "google_compute_address" "static" {
   name         = "nginx-controller"
   address_type = "EXTERNAL"
