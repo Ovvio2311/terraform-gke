@@ -1,4 +1,5 @@
-project_id = "able-scope-413414"
+# project_id = "able-scope-413414"
+project_id = "astute-catcher-417216"
 zones = ["us-central1-c"]
 cluster_name = "fyp-vpc-cluster"
 region = "us-central1"
