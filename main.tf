@@ -124,7 +124,7 @@ module "gke" {
   horizontal_pod_autoscaling = false
   kubernetes_version      = "1.29"
   release_channel         = "UNSPECIFIED"
-  fleet_project           = "able-scope-413414"
+  fleet_project           = var.project_id
   disable_legacy_metadata_endpoints = true
   
   master_authorized_networks = [
