@@ -12,7 +12,7 @@ data "google_container_cluster" "primary" {
 }
 provider "google" {
   credentials = file("/home/itp4108mfyp/astute-catcher-417216-b16c8ea6b4fd.json")
-  project = "able-scope-413414"
+  project = var.project_id
   region  = "us-central1"
   zone    = "us-central1-c"
 }
