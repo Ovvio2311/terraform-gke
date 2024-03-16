@@ -1,9 +1,9 @@
 
 data "google_client_config" "default" {  
 }
-data "google_client_config" "update" {
+/*data "google_client_config" "update" {
   depends_on = [module.gke]
-}
+}*/
 
 data "google_container_cluster" "primary" {
   name     = var.cluster_name
@@ -16,7 +16,7 @@ provider "google" {
   region  = "us-central1"
   zone    = "us-central1-c"
 }
-provider "kubernetes" {
+/*provider "kubernetes" {
   # config_path    = "~/.kube/kubeconfig"
   host                   = "https://${module.gke.endpoint}" 
   token                  = data.google_client_config.default.access_token    
@@ -48,7 +48,7 @@ provider "helm" {
     client_key             = base64decode(data.google_container_cluster.primary.master_auth.0.client_key)
     client_certificate = base64decode(data.google_container_cluster.primary.master_auth.0.client_certificate)
   }
-}
+}*/
 # ----------------------------------------------------------------------------------------
 module "gke_auth" {
   source       = "terraform-google-modules/kubernetes-engine/google//modules/auth"
