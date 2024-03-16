@@ -267,12 +267,12 @@ resource "google_compute_router_nat" "nat" {
   }
 }
 */
-resource "google_compute_address" "static" {
+/*resource "google_compute_address" "static" {
   name         = "nginx-controller"
   address_type = "EXTERNAL"
   
   # purpose      = "GCE_ENDPOINT"
-}
+}*/
 /*locals {
   helm_chart      = "ingress-nginx"
   helm_repository = "https://kubernetes.github.io/ingress-nginx"
@@ -283,7 +283,7 @@ resource "google_compute_address" "static" {
       value = google_compute_address.static.address
     }
   ]
-}*/
+}
 resource "helm_release" "nginx_ingress_controller" {
   name       = "ingress-nginx"
   namespace  = "ingress-nginx"
@@ -298,3 +298,4 @@ resource "helm_release" "nginx_ingress_controller" {
       value = google_compute_address.static.address    
   }
 }
+*/
