@@ -1,5 +1,5 @@
 # project_id = "able-scope-413414"
-project_id = "fyp-project-417406"
+project_id = "my-project-4108m"
 zones = ["us-central1-c"]
 cluster_name = "fyp-vpc-cluster"
 region = "us-central1"
