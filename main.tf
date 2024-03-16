@@ -17,7 +17,7 @@ provider "google" {
   zone    = "us-central1-c"
 }
 provider "kubernetes" {
-  config_path    = "~/.kube/kubeconfig"
+  # config_path    = "~/.kube/kubeconfig"
   host                   = "https://${module.gke.endpoint}" 
   token                  = data.google_client_config.default.access_token    
   cluster_ca_certificate   = base64decode(module.gke.ca_certificate)
@@ -32,7 +32,7 @@ provider "kubernetes" {
 
 provider "helm" {
   kubernetes {
-    config_path = "~/.kube/config"
+    # config_path = "~/.kube/config"
     # host                   = "https://${module.gke.endpoint}"
     host  = "https://${data.google_container_cluster.primary.endpoint}"
     token                  = data.google_client_config.update.access_token
