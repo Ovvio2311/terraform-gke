@@ -355,7 +355,7 @@ resource "google_service_account" "bucket_account" {
   
 }
 
-resource "google_project_iam_binding" "bind_user" {
+resource "google_project_iam_binding" "binding" {
   project = var.project_id
   role    = "roles/storage.admin"
   members = [
