@@ -273,35 +273,88 @@ resource "google_compute_router_nat" "nat" {
   }
 }
 */
-/*resource "google_compute_address" "static" {
-  name         = "nginx-controller"
-  address_type = "EXTERNAL"
-  
-  # purpose      = "GCE_ENDPOINT"
-}*/
-/*locals {
-  helm_chart      = "ingress-nginx"
-  helm_repository = "https://kubernetes.github.io/ingress-nginx"
-
-  loadBalancerIP = google_compute_address.static.address == null ? [] : [
-    {
-      name  = "nginx-controller"
-      value = google_compute_address.static.address
+# =========================================================
+resource "google_artifact_registry_repository" "my-repo" {
+  location      = "us-central1"
+  repository_id = var.project_id
+  description   = "remote docker repository"
+  format        = "DOCKER"
+  mode          = "REMOTE_REPOSITORY"
+  remote_repository_config {
+    description = "docker hub"
+    docker_repository {
+      public_repository = "DOCKER_HUB"
     }
-  ]
-}
-resource "helm_release" "nginx_ingress_controller" {
-  name       = "ingress-nginx"
-  namespace  = "ingress-nginx"
-  repository = "https://kubernetes.github.io/ingress-nginx"
-  chart      = "ingress-nginx"
-  values     = ["${file("values.yaml")}"]
-  create_namespace = true  
-  depends_on = [ google_compute_address.static]
-  
-  set {    
-      name  = "controller.service.loadBalancerIP"
-      value = google_compute_address.static.address    
+  }
+  cleanup_policy_dry_run = false
+  cleanup_policies {
+    id     = "delete-prerelease"
+    action = "DELETE"
+    condition {
+      tag_state    = "UNTAGGED"
+      # tag_prefixes = ["alpha", "v0"]
+      older_than   = "3d"
+    }
   }
 }
-*/
+# ===================================================
+
+resource "google_kms_key_ring" "keyring" {
+  name     = "fyp-portal-key"
+  location = "us-central1"
+}
+resource "google_kms_crypto_key" "fyp-key" {
+  name            = "fyp-crypto-key"
+  key_ring        = google_kms_key_ring.keyring.id
+  purpose  = "ENCRYPT_DECRYPT"
+  # rotation_period = "7776000s"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "google_service_account" "kms_account" {
+  account_id   = "fyp-access-gcp-role"
+  display_name = "kms-access"
+}
+resource "google_kms_key_ring_iam_binding" "key_ring" {
+  key_ring_id = google_kms_key_ring.keyring.id
+  role        = "roles/cloudkms.admin"
+
+  members = [
+    google_service_account.kms_account.member,
+  ]
+}
+resource "google_kms_crypto_key_iam_binding" "crypto_key" {
+  crypto_key_id = google_kms_crypto_key.fyp-key.id
+  role          = "roles/cloudkms.cryptoKeyEncrypter"
+
+  members = [
+    google_service_account.kms_account.member,
+  ]
+}
+# =======================================
+
+resource "google_storage_bucket" "static" {
+  name          = "fyp-bucket-4108"
+  location      = "us-central1"
+  force_destroy = true
+  storage_class = "COLDLINE"
+
+  uniform_bucket_level_access = true
+
+  soft_delete_policy {
+    retention_duration_seconds = "7776000"  
+}
+resource "google_service_account" "bucket_account" {
+  account_id   = "fyp-bucket-access-role"
+  display_name = "bucket-access"
+}
+resource "google_storage_bucket_iam_binding" "binding" {
+  bucket = google_storage_bucket.static.name
+  role = "roles/storage.admin"
+  members = [
+    google_service_account.bucket_account.member,
+  ]
+}
