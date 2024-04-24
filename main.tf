@@ -296,6 +296,7 @@ resource "google_artifact_registry_repository" "my-repo" {
       older_than   = "3d"
     }
   }
+  
 }
 # ===================================================
 
@@ -317,6 +318,7 @@ resource "google_kms_crypto_key" "fyp-key" {
 resource "google_service_account" "kms_account" {
   account_id   = "fyp-access-gcp-role"
   display_name = "kms-access"
+  create_ignore_already_exists = true
 }
 resource "google_kms_key_ring_iam_binding" "key_ring" {
   key_ring_id = google_kms_key_ring.keyring.id
@@ -351,6 +353,7 @@ resource "google_storage_bucket" "static" {
 resource "google_service_account" "bucket_account" {
   account_id   = "fyp-bucket-access-role"
   display_name = "bucket-access"
+  create_ignore_already_exists = true
 }
 resource "google_storage_bucket_iam_binding" "binding" {
   bucket = google_storage_bucket.static.name
