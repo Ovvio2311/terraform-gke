@@ -354,6 +354,7 @@ resource "google_service_account" "bucket_account" {
   account_id   = "fyp-bucket-access-role"
   display_name = "bucket-access"
   create_ignore_already_exists = true
+  v
 }
 resource "google_storage_bucket_iam_binding" "binding" {
   bucket = google_storage_bucket.static.name
@@ -361,4 +362,5 @@ resource "google_storage_bucket_iam_binding" "binding" {
   members = [
     google_service_account.bucket_account.member,
   ]
+  depends_on = [google_service_account.bucket_account]
 }
