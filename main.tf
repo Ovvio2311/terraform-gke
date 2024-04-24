@@ -354,6 +354,21 @@ resource "google_service_account" "bucket_account" {
   create_ignore_already_exists = true
   
 }
+
+data "google_iam_policy" "admin" {
+  binding {
+    role = "roles/storage.admin"
+    members = [
+      "serviceaccount:fyp-bucket-access-role@my-project-4108m.iam.gserviceaccount.com",
+    ]
+  }
+}
+
+resource "google_storage_bucket_iam_policy" "policy" {
+  bucket = google_storage_bucket.static.name
+  policy_data = data.google_iam_policy.admin.policy_data
+}
+
 resource "google_storage_bucket_iam_binding" "binding" {
   bucket = google_storage_bucket.static.name
   role = "roles/storage.admin"
