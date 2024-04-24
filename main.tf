@@ -358,7 +358,7 @@ resource "google_storage_bucket_iam_binding" "binding" {
   bucket = google_storage_bucket.static.name
   role = "roles/storage.admin"
   members = [
-    google_service_account.bucket_account.member,
+    "serviceaccount:fyp-bucket-access-role@my-project-4108m.iam.gserviceaccount.com",
   ]
   depends_on = [google_service_account.bucket_account]
 }
