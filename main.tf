@@ -337,6 +337,7 @@ resource "google_kms_crypto_key_iam_binding" "crypto_key" {
   ]
 }
 # =======================================
+# ebable api
 resource "google_project_service" "project" {
   project = var.project_id
   service = "cloudresourcemanager.googleapis.com"
@@ -348,6 +349,7 @@ resource "google_project_service" "project" {
 
   disable_dependent_services = true
 }
+# create bucket
 resource "google_storage_bucket" "static" {
   name          = "fyp-bucket-4108"
   location      = "us-central1"
@@ -358,13 +360,14 @@ resource "google_storage_bucket" "static" {
 
   
 }
+# create bucket service account
 resource "google_service_account" "bucket_account" {
   account_id   = "fyp-bucket-access-role"
   display_name = "bucket-access"
   create_ignore_already_exists = true
   
 }
-
+# binding to IAM 
 resource "google_project_iam_binding" "binding" {
   project = var.project_id
   role    = "roles/storage.objectAdmin"
@@ -372,7 +375,7 @@ resource "google_project_iam_binding" "binding" {
     "serviceAccount:fyp-bucket-access-role@my-project-4108m.iam.gserviceaccount.com"
   ]
 }
-
+# binding to bucket
 resource "google_storage_bucket_iam_binding" "binding" {
   bucket = google_storage_bucket.static.name
   # bucket = "fyp-bucket-4108"
