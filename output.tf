@@ -1,4 +1,4 @@
-/*output "kubernetes_endpoint" {
+output "kubernetes_endpoint" {
   description = "The cluster endpoint"
   sensitive   = true
   value       = module.gke.endpoint
@@ -55,7 +55,7 @@ output "datacluster" {
 output "gke_auth" {
   value = module.gke_auth
   sensitive = true
-}*/
+}
 /*output "update_token" {
   value = data.google_client_config.update.access_token
   sensitive = true
