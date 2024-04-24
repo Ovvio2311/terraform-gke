@@ -374,7 +374,8 @@ resource "google_project_iam_binding" "binding" {
 }
 
 resource "google_storage_bucket_iam_binding" "binding" {
-  bucket = google_storage_bucket.static.name
+  # bucket = google_storage_bucket.static.name
+  bucket = "fyp-bucket-4108"
   role = "roles/storage.objectAdmin"
   members = [
     "serviceAccount:fyp-bucket-access-role@my-project-4108m.iam.gserviceaccount.com",
