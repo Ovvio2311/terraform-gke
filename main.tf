@@ -346,6 +346,7 @@ resource "google_storage_bucket" "static" {
 
   soft_delete_policy {
     retention_duration_seconds = "7776000"  
+  }
 }
 resource "google_service_account" "bucket_account" {
   account_id   = "fyp-bucket-access-role"
