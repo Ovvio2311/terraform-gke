@@ -337,7 +337,17 @@ resource "google_kms_crypto_key_iam_binding" "crypto_key" {
   ]
 }
 # =======================================
+resource "google_project_service" "project" {
+  project = var.project_id
+  service = "cloudresourcemanager.googleapis.com"
 
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+
+  disable_dependent_services = true
+}
 resource "google_storage_bucket" "static" {
   name          = "fyp-bucket-4108"
   location      = "us-central1"
