@@ -372,7 +372,7 @@ resource "google_project_iam_binding" "binding" {
   project = var.project_id
   role    = "roles/storage.objectAdmin"
   members = [
-    "serviceAccount:fyp-bucket-access-role@my-project-4108m.iam.gserviceaccount.com"
+    "serviceAccount:${google_service_account.bucket_account.name}"
   ]
 }
 # binding to bucket
@@ -382,8 +382,14 @@ resource "google_storage_bucket_iam_binding" "binding" {
   # role = "roles/storage.admin"
   role     = "roles/storage.objectAdmin"
   members = [
-    "serviceAccount:fyp-bucket-access-role@my-project-4108m.iam.gserviceaccount.com",
+    "serviceAccount:${google_service_account.bucket_account.name}"
   ]
 }
-
+resource "google_project_iam_binding" "bindstorageadmin" {
+  project = var.project_id
+  role    = "roles/storage.admin"
+  members = [
+    "user:itp4108mfyp@gmail.com"
+  ]
+}
 
