@@ -125,6 +125,7 @@ module "gke" {
   source  = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   version = "~> 30.0"
   service_account= "default"
+  depends_on = [google_project_service.gkehub]
   project_id = var.project_id
   name       = var.cluster_name
   regional   = false
