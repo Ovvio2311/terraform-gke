@@ -310,7 +310,7 @@ resource "google_service_account" "kms_account" {
 resource "google_kms_key_ring_iam_binding" "key_ring" {
   key_ring_id = google_kms_key_ring.keyring.id
   role        = "roles/cloudkms.admin"
-
+  depends_on = [google_service_account.kms_account]
   members = [
     serviceAccount:${google_service_account.kms_account.email}
   ]
@@ -318,6 +318,7 @@ resource "google_kms_key_ring_iam_binding" "key_ring" {
 resource "google_kms_crypto_key_iam_binding" "crypto_key" {
   crypto_key_id = google_kms_crypto_key.fyp-key.id
   role          = "roles/cloudkms.cryptoKeyEncrypter"
+  depends_on = [google_service_account.kms_account]
 
   members = [
     serviceAccount:${google_service_account.kms_account.email}
