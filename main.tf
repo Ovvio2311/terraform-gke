@@ -371,7 +371,7 @@ resource "google_project_iam_binding" "bindstorageadmin" {
   project = var.project_id
   role    = "roles/storage.admin"
   members = [
-    "user:itp4108mfyp@gmail.com"
+    "user:alan1031@livemail.tw"
   ]
 }
 
