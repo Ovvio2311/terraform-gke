@@ -14,7 +14,7 @@ data "google_container_cluster" "primary" {
 # =========================================================================================================
 # =========================================================================================================
 provider "google" {
-  # credentials = file("/home/itp4108mfyp/astute-catcher-417216-b16c8ea6b4fd.json")
+  credentials = file("/home/alan1031/proven-fort-421209-4543458a516f.json")
   project = var.project_id
   region  = "us-central1"
   zone    = "us-central1-c"
