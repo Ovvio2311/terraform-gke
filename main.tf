@@ -79,7 +79,7 @@ resource "google_project_service" "serviceusage" {
   
 }
 # ebable api
-resource "google_project_service" "serviceusage" {
+resource "google_project_service" "kms" {
   project = var.project_id
   service = "cloudkms.googleapis.com"
 
