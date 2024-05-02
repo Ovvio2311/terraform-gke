@@ -61,33 +61,18 @@ resource "google_project_service" "gkehub" {
   project = var.project_id
   service = "gkehub.googleapis.com"
 
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
 }
 # ebable api
 resource "google_project_service" "serviceusage" {
   project = var.project_id
   service = "serviceusage.googleapis.com"
 
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-  
 }
 # ebable api
 resource "google_project_service" "kms" {
   project = var.project_id
   service = "cloudkms.googleapis.com"
 
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-  
 }
 module "gke_auth" {
   source       = "terraform-google-modules/kubernetes-engine/google//modules/auth"
@@ -375,12 +360,6 @@ resource "google_kms_crypto_key_iam_binding" "crypto_key" {
 resource "google_project_service" "project" {
   project = var.project_id
   service = "cloudresourcemanager.googleapis.com"
-
-  timeouts {
-    create = "30m"
-    update = "40m"
-  }
-
   disable_dependent_services = true
 }
 # create bucket
