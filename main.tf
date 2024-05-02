@@ -57,7 +57,7 @@ provider "helm" {
 # =========================================================================================================
 # =========================================================================================================
 # ebable api
-resource "google_project_service" "project" {
+resource "google_project_service" "gkehub" {
   project = var.project_id
   service = "gkehub.googleapis.com"
 
