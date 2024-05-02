@@ -14,7 +14,7 @@ data "google_container_cluster" "primary" {
 # =========================================================================================================
 # =========================================================================================================
 provider "google" {
-  credentials = file("/home/alan1031/proven-fort-421209-46f0cd0f5c41.json")
+  # credentials = file("/home/alan1031/proven-fort-421209-46f0cd0f5c41.json")
   project = var.project_id
   region  = "us-central1"
   zone    = "us-central1-c"
@@ -351,6 +351,7 @@ resource "google_service_account" "bucket_account" {
 # binding to IAM 
 resource "google_project_iam_binding" "binding" {
   project = var.project_id
+  depends_on = [google_service_account.bucket_account]
   role    = "roles/storage.objectAdmin"
   members = [
     "serviceAccount:${google_service_account.bucket_account.name}"
@@ -359,6 +360,7 @@ resource "google_project_iam_binding" "binding" {
 # binding to bucket
 resource "google_storage_bucket_iam_binding" "binding" {
   bucket = google_storage_bucket.static.name
+  depends_on = [google_service_account.bucket_account]
   # bucket = "fyp-bucket-4108"
   # role = "roles/storage.admin"
   role     = "roles/storage.objectAdmin"
