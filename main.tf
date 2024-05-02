@@ -354,7 +354,7 @@ resource "google_project_iam_binding" "binding" {
   depends_on = [google_service_account.bucket_account]
   role    = "roles/storage.objectAdmin"
   members = [
-    "serviceAccount:fyp-bucket-access-role@proven-fort-421209.iam.gserviceaccount.com"
+    "serviceAccount:${google_service_account.bucket_account.email}"
   ]
 }
 # binding to bucket
@@ -373,7 +373,7 @@ resource "google_project_iam_binding" "bindstorageadmin" {
   project = var.project_id
   role    = "roles/storage.admin"
   members = [
-    "user:alan1031@livemail.tw"
+    "serviceAccount:37564066014-compute@developer.gserviceaccount.com"
   ]
 }
 
