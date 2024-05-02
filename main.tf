@@ -66,7 +66,28 @@ resource "google_project_service" "gkehub" {
     update = "40m"
   }
 
-  disable_dependent_services = true
+}
+# ebable api
+resource "google_project_service" "serviceusage" {
+  project = var.project_id
+  service = "serviceusage.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+  
+}
+# ebable api
+resource "google_project_service" "serviceusage" {
+  project = var.project_id
+  service = "cloudkms.googleapis.com"
+
+  timeouts {
+    create = "30m"
+    update = "40m"
+  }
+  
 }
 module "gke_auth" {
   source       = "terraform-google-modules/kubernetes-engine/google//modules/auth"
