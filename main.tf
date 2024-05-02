@@ -280,7 +280,7 @@ resource "google_artifact_registry_repository" "my-repo" {
     condition {
       tag_state    = "UNTAGGED"
       # tag_prefixes = ["alpha", "v0"]
-      older_than   = "3d"
+      older_than   = "259200s"
     }
   }
   
