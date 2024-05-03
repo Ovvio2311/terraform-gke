@@ -318,12 +318,7 @@ resource "google_project_iam_binding" "kmsbindiam" {
   ]
 }
 # =======================================
-# ebable api
-resource "google_project_service" "project" {
-  project = var.project_id
-  service = "cloudresourcemanager.googleapis.com"
-  disable_dependent_services = true
-}
+
 # create bucket
 resource "google_storage_bucket" "static" {
   name          = "fyp-bucket-4108"
@@ -367,7 +362,7 @@ resource "google_project_iam_binding" "bindstorageadmin" {
   project = var.project_id
   role    = "roles/storage.admin"
   members = [
-    "serviceAccount:37564066014-compute@developer.gserviceaccount.com"
+    "serviceAccount:747382089580-compute@developer.gserviceaccount.com"
   ]
 }
 
