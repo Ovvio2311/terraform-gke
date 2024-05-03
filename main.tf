@@ -24,24 +24,7 @@ provider "google" {
 # =========================================================================================================
 # =========================================================================================================
 # =========================================================================================================
-# ebable api
-resource "google_project_service" "gkehub" {
-  project = var.project_id
-  service = "gkehub.googleapis.com"
 
-}
-# ebable api
-resource "google_project_service" "serviceusage" {
-  project = var.project_id
-  service = "serviceusage.googleapis.com"
-
-}
-# ebable api
-resource "google_project_service" "kms" {
-  project = var.project_id
-  service = "cloudkms.googleapis.com"
-
-}
 module "gke_auth" {
   source       = "terraform-google-modules/kubernetes-engine/google//modules/auth"
   depends_on   = [module.gke]
