@@ -1,5 +1,5 @@
-# project_id = "able-scope-413414"
-project_id = "metal-cascade-422109"
+
+project_id = "direct-topic-422109"
 zones = ["us-central1-c"]
 cluster_name = "fyp-vpc-cluster"
 region = "us-central1"
