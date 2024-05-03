@@ -246,15 +246,15 @@ resource "google_compute_router_nat" "nat" {
 resource "google_artifact_registry_repository" "my-repo" {
   location      = "us-central1"
   repository_id = var.project_id
-  description   = "remote docker repository"
+  description   = "standard docker repository"
   format        = "DOCKER"
-  mode          = "REMOTE_REPOSITORY"
-  remote_repository_config {
-    description = "docker hub"
-    docker_repository {
-      public_repository = "DOCKER_HUB"
-    }
-  }
+  mode          = "STANDARD_REPOSITORY"
+  # remote_repository_config {
+  #  description = "docker hub"
+   # docker_repository {
+    #  public_repository = "DOCKER_HUB"
+   # }
+  # }
   cleanup_policy_dry_run = false
   cleanup_policies {
     id     = "delete-prerelease"
