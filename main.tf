@@ -299,7 +299,7 @@ resource "google_kms_key_ring_iam_binding" "key_ring" {
 }
 resource "google_kms_crypto_key_iam_binding" "crypto_key" {
   crypto_key_id = google_kms_crypto_key.fyp-key.id
-  role          = "roles/cloudkms.cryptoKeyEncrypter"
+  role          = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
   depends_on = [google_service_account.kms_account]
 
   members = [
@@ -354,6 +354,15 @@ resource "google_storage_bucket_iam_binding" "binding" {
   role     = "roles/storage.objectAdmin"
   members = [
     "serviceAccount:${google_service_account.bucket_account.email}"
+  ]
+}
+# binding gcp access role to bucket 
+resource "google_storage_bucket_iam_binding" "binding" {
+  bucket = google_storage_bucket.static.name
+  depends_on = [google_service_account.bucket_account]
+  role     = "roles/storage.objectAdmin"
+  members = [
+    "serviceAccount:${google_service_account.kms_account.email}"
   ]
 }
 # bind storage admin to user
