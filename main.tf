@@ -373,4 +373,19 @@ resource "google_project_iam_binding" "bindstorageadmin" {
     "serviceAccount:747382089580-compute@developer.gserviceaccount.com"
   ]
 }
-
+# ============================================================
+# create ai service account
+resource "google_service_account" "ai_account" {
+  account_id   = "fyp-ai-access"
+  display_name = "fyp-ai-access"
+  create_ignore_already_exists = true  
+}
+# binding to IAM 
+resource "google_project_iam_binding" "binding_ai" {
+  project = var.project_id
+  depends_on = [google_service_account.ai_account]
+  role    = "roles/aiplatform.admin"
+  members = [
+    "serviceAccount:${google_service_account.ai_account.email}"
+  ]
+}
