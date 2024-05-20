@@ -357,7 +357,7 @@ resource "google_storage_bucket_iam_binding" "binding" {
   ]
 }
 # binding gcp access role to bucket 
-resource "google_storage_bucket_iam_binding" "binding" {
+resource "google_storage_bucket_iam_binding" "binding_gcp" {
   bucket = google_storage_bucket.static.name
   depends_on = [google_service_account.bucket_account]
   role     = "roles/storage.objectAdmin"
