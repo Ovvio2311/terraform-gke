@@ -320,7 +320,7 @@ resource "google_project_iam_binding" "kmsbindiam" {
 
 # create bucket
 resource "google_storage_bucket" "static" {
-  name          = "fyp-bucket-4108mm"
+  name          = "fyp-bucket-gym2024m"
   location      = "us-central1"
   force_destroy = true
   storage_class = "COLDLINE"
