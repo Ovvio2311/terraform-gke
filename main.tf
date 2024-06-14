@@ -357,7 +357,7 @@ resource "google_storage_bucket_iam_binding" "binding" {
   ]
 }
 # binding to bucket
-resource "google_storage_bucket_iam_binding" "binding" {
+resource "google_storage_bucket_iam_binding" "storage" {
   bucket = google_storage_bucket.static.name
   depends_on = [google_service_account.bucket_account]
   role     = "roles/storage.admin"
