@@ -311,13 +311,21 @@ resource "google_kms_crypto_key_iam_binding" "crypto_key" {
 # binding to IAM 
 resource "google_project_iam_binding" "kmsbindiam" {
   project = var.project_id
-  depends_on = [google_service_account.bucket_account]
+  depends_on = [google_service_account.kms_account]
   role    = "roles/cloudkms.admin"
   members = [
     "serviceAccount:${google_service_account.kms_account.email}"
   ]
 }
-
+# binding to IAM 
+resource "google_project_iam_binding" "kmsdecrypt" {
+  project = var.project_id
+  depends_on = [google_service_account.kms_account]
+  role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
+  members = [
+    "serviceAccount:${google_service_account.kms_account.email}"
+  ]
+}
 # ======================================================================
 
 # create bucket
