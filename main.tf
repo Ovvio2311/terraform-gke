@@ -366,7 +366,7 @@ resource "google_storage_bucket_iam_binding" "storage" {
   ]
 }
 # binding storage admin to user 
-resource "google_project_iam_binding" "binding" {
+resource "google_project_iam_binding" "storage" {
   project = var.project_id
   depends_on = [google_service_account.bucket_account]
   role    = "roles/storage.admin"
