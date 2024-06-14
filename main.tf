@@ -267,6 +267,7 @@ resource "google_artifact_registry_repository" "my-repo" {
   }
   
 }
+# kms
 # ===================================================
 
 resource "google_kms_key_ring" "keyring" {
@@ -316,7 +317,8 @@ resource "google_project_iam_binding" "kmsbindiam" {
     "serviceAccount:${google_service_account.kms_account.email}"
   ]
 }
-# =======================================
+
+# ======================================================================
 
 # create bucket
 resource "google_storage_bucket" "static" {
@@ -349,30 +351,30 @@ resource "google_project_iam_binding" "binding" {
 resource "google_storage_bucket_iam_binding" "binding" {
   bucket = google_storage_bucket.static.name
   depends_on = [google_service_account.bucket_account]
-  # bucket = "fyp-bucket-4108"
-  # role = "roles/storage.admin"
   role     = "roles/storage.objectAdmin"
   members = [
     "serviceAccount:${google_service_account.bucket_account.email}"
   ]
 }
-# binding gcp access role to bucket 
-resource "google_storage_bucket_iam_binding" "binding_gcp" {
+# binding to bucket
+resource "google_storage_bucket_iam_binding" "binding" {
   bucket = google_storage_bucket.static.name
   depends_on = [google_service_account.bucket_account]
-  role     = "roles/storage.objectAdmin"
+  role     = "roles/storage.admin"
   members = [
-    "serviceAccount:${google_service_account.kms_account.email}"
+    "serviceAccount:${google_service_account.bucket_account.email}"
   ]
 }
-# bind storage admin to user
-resource "google_project_iam_binding" "bindstorageadmin" {
+# binding storage admin to user 
+resource "google_project_iam_binding" "binding" {
   project = var.project_id
+  depends_on = [google_service_account.bucket_account]
   role    = "roles/storage.admin"
   members = [
-    "serviceAccount:747382089580-compute@developer.gserviceaccount.com"
+    "serviceAccount:${google_service_account.bucket_account.email}"
   ]
 }
+
 # ============================================================
 # create ai service account
 resource "google_service_account" "ai_account" {
